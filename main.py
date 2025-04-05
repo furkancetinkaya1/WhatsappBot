@@ -1,8 +1,8 @@
 import os
 from flask import Flask, request, Response
+from botWebsite import homePage
 
 app = Flask(__name__)
-
 
 # Kullanıcı adı kaydetme fonksiyonu
 def save_user_name(user_id, user_name):
@@ -77,57 +77,7 @@ def get_price_response(message):
 # Ana sayfa route'u
 @app.route("/", methods=["GET"])
 def home():
-    return """
-  <!DOCTYPE html>
-  <html lang="tr">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>WhatsApp E-Ticaret Botu</title>
-      <style>
-          body {
-              font-family: Arial, sans-serif;
-              background: #f4f4f4;
-              margin: 0;
-              padding: 0;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100vh;
-          }
-          .container {
-              background: white;
-              padding: 30px;
-              border-radius: 10px;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-              text-align: center;
-          }
-          h1 {
-              color: #333;
-          }
-          p {
-              color: #666;
-          }
-          .status {
-              margin-top: 20px;
-              padding: 10px;
-              background: #d4edda;
-              color: #155724;
-              border: 1px solid #c3e6cb;
-              border-radius: 5px;
-              display: inline-block;
-          }
-      </style>
-  </head>
-  <body>
-      <div class="container">
-          <h1>WhatsApp E-Ticaret Botu</h1>
-          <p>Bu bot, kullanıcılarla WhatsApp üzerinden etkileşim kurar ve e-ticaret desteği sağlar.</p>
-          <div class="status">Durum: Bot aktif ve çalışıyor!</div>
-      </div>
-  </body>
-  </html>
-  """
+    return homePage()
 
 
 # WhatsApp mesajı alıp yanıt döndüren route
