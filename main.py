@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, Response
 from home_view import home_page
 from contact_page import contact_page
+from about_page import about_page
 
 app = Flask(__name__)
 
@@ -100,6 +101,10 @@ def whatsapp_reply():
 @app.route("/iletisim", methods=["GET"])
 def iletisim():
     return contact_page()
+
+@app.route("/hakkimizda", methods=["GET"])
+def hakkimizda():
+    return about_page()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
