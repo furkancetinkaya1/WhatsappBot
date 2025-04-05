@@ -12,7 +12,16 @@ def whatsapp_reply():
     print("Gelen mesaj:", incoming_msg)
 
     # Yanıt mesajı
-    reply = "Merhaba! Size nasıl yardımcı olabilirim?"
+    reply = ""
+
+    if "merhaba" in incoming_msg:
+        reply = "Merhaba! Size nasıl yardımcı olabilirim?"
+    elif "fiyat" in incoming_msg:
+        reply = "Ürün fiyatımız 499 TL'dir."
+    elif "kargo" in incoming_msg:
+        reply = "Kargo süremiz 1-3 iş günüdür."
+    else:
+        reply = "Maalesef sizi anlayamadım. Daha detaylı yazar mısınız?"
 
     # XML yanıtını oluştur
     response = f"""<?xml version="1.0" encoding="UTF-8"?>
