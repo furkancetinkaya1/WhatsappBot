@@ -1,8 +1,8 @@
 import os
 from flask import Flask, request, Response
-from home_view import home_page
-from contact_page import contact_page
-from about_page import about_page
+from Page.home_view import home_page
+from Page.contact_page import contact_page
+from Page.about_page import about_page
 
 app = Flask(__name__)
 
