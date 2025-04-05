@@ -49,15 +49,15 @@ def whatsapp_reply():
         user_name = incoming_msg.split("adım")[-1].strip()  # Kullanıcı adını al
         save_user_name(user_id, user_name)  # Adı kaydet
         reply = f"Adınızı kaydettim, {user_name}. Size nasıl yardımcı olabilirim?"
-        if "fiyat" in incoming_msg:
-            if "konut" in incoming_msg:
-                reply = f"Konut fiyatımız {product_prices['konut']}."
-            elif "arsa" in incoming_msg:
-                reply = f"Arsa fiyatımız {product_prices['arsa']}."
-            elif "işyeri" in incoming_msg:
-                reply = f"İşyeri fiyatımız {product_prices['işyeri']}."
-            else:
-                reply = "Hangi ürün hakkında bilgi almak istersiniz? Konut, Arsa, İşyeri?"
+    elif "fiyat" in incoming_msg:
+        if "konut" in incoming_msg:
+            reply = f"Konut fiyatımız {product_prices['konut']}."
+        elif "arsa" in incoming_msg:
+            reply = f"Arsa fiyatımız {product_prices['arsa']}."
+        elif "işyeri" in incoming_msg:
+            reply = f"İşyeri fiyatımız {product_prices['işyeri']}."
+        else:
+            reply = "Hangi ürün hakkında bilgi almak istersiniz? Konut, Arsa, İşyeri?"
     elif "kargo" in incoming_msg:
         reply = "Kargo süremiz 1-3 iş günüdür."
     else:
