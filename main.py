@@ -12,7 +12,7 @@ def whatsapp_reply():
     print("Gelen mesaj:", incoming_msg)
 
     # Yanıt mesajı
-    reply = "Adını botlara yazdım yariiimmm"
+    reply = "Merhaba! Size nasıl yardımcı olabilirim?"
 
     # XML yanıtını oluştur
     response = f"""<?xml version="1.0" encoding="UTF-8"?>
