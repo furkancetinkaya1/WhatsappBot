@@ -77,7 +77,57 @@ def get_price_response(message):
 # Ana sayfa route'u
 @app.route("/", methods=["GET"])
 def home():
-    return "Bot çalışıyor!"
+    return """
+  &lt;!DOCTYPE html&gt;
+  &lt;html lang="tr"&gt;
+  &lt;head&gt;
+      &lt;meta charset="UTF-8"&gt;
+      &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+      &lt;title>WhatsApp E-Ticaret Botu&lt;/title&gt;
+      &lt;style&gt;
+          body {
+              font-family: Arial, sans-serif;
+              background: #f4f4f4;
+              margin: 0;
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+          }
+          .container {
+              background: white;
+              padding: 30px;
+              border-radius: 10px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              text-align: center;
+          }
+          h1 {
+              color: #333;
+          }
+          p {
+              color: #666;
+          }
+          .status {
+              margin-top: 20px;
+              padding: 10px;
+              background: #d4edda;
+              color: #155724;
+              border: 1px solid #c3e6cb;
+              border-radius: 5px;
+              display: inline-block;
+          }
+      &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+      &lt;div class="container"&gt;
+          &lt;h1&gt;WhatsApp E-Ticaret Botu&lt;/h1&gt;
+          &lt;p&gt;Bu bot, kullanıcılarla WhatsApp üzerinden etkileşim kurar ve e-ticaret desteği sağlar.&lt;/p&gt;
+          &lt;div class="status"&gt;Durum: Bot aktif ve çalışıyor!&lt;/div&gt;
+      &lt;/div&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+  """
 
 
 # WhatsApp mesajı alıp yanıt döndüren route
