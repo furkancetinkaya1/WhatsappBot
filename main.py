@@ -3,6 +3,7 @@ from flask import Flask, request, Response
 from Page.home_view import home_page
 from Page.contact_page import contact_page
 from Page.about_page import about_page
+from Automation.automatic_replies import process_message
 
 app = Flask(__name__)
 
@@ -39,41 +40,6 @@ product_prices = {
     "arsa": "350 TL",
     "işyeri": "1000 TL"
 }
-
-
-# Mesaj işleme fonksiyonu
-def process_message(incoming_msg, user_id):
-    """Gelen mesajı işleyip yanıt döndüren fonksiyon"""
-    user_name = get_user_name(user_id)
-
-    if "merhaba" in incoming_msg:
-        reply = f"Merhaba {user_name if user_name else 'misafir'}! Size nasıl yardımcı olabilirim?"
-    elif "adım" in incoming_msg:
-        user_name = incoming_msg.split("adım")[-1].strip()
-        save_user_name(user_id, user_name)
-        reply = f"Adınızı kaydettim, {user_name}. Size nasıl yardımcı olabilirim?"
-    elif "fiyat" in incoming_msg:
-        reply = get_price_response(incoming_msg)
-    elif "kargo" in incoming_msg:
-        reply = "Kargo süremiz 1-3 iş günüdür."
-    else:
-        reply = "Maalesef sizi anlayamadım. Daha detaylı yazar mısınız?"
-
-    return reply
-
-
-# Fiyatlarla ilgili yanıt veren fonksiyon
-def get_price_response(message):
-    """Fiyatla ilgili gelen mesajı işleyip yanıt döndüren fonksiyon"""
-    if "konut" in message:
-        return f"Konut fiyatımız {product_prices['konut']}."
-    elif "arsa" in message:
-        return f"Arsa fiyatımız {product_prices['arsa']}."
-    elif "işyeri" in message:
-        return f"İşyeri fiyatımız {product_prices['işyeri']}."
-    else:
-        return "Hangi ürün hakkında bilgi almak istersiniz? Konut, Arsa, İşyeri?"
-
 
 # Ana sayfa route'u
 @app.route("/", methods=["GET"])
