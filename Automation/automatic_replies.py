@@ -1,8 +1,11 @@
 import os
 
+# Kullanıcı durumlarını takip etmek için
+user_states = {}  # user_id -> state
+
 # Örnek sipariş veritabanı (telefon ve e-posta eşleştirmesiyle)
 siparis_veritabani = {
-    "whatsapp:+905551112233": {"kargo": "Kargonuz yola çıktı ve dağıtım merkezinde."},
+    "whatsapp:+905301449892": {"kargo": "Kargonuz yola çıktı ve dağıtım merkezinde."},
     "test@example.com": {"kargo": "Siparişiniz kargoya verildi, 2 gün içinde teslim edilecek."}
 }
 
@@ -12,23 +15,53 @@ kullanici_eposta_istegi = {}  # user_id -> True/False
 def process_message(incoming_msg, user_id):
     global kullanici_eposta_istegi
 
-    # Eğer kullanıcıdan e-posta bekleniyorsa
-    if kullanici_eposta_istegi.get(user_id, False):
+    if user_id not in user_states:
+        user_states[user_id] = "awaiting_selection"
+        return (
+            "Merhaba! Size nasıl yardımcı olabilirim?\n"
+            "Lütfen bir seçenek belirtin:\n"
+            "1️⃣ Mağaza Sitesine Git\n"
+            "2️⃣ Kargo Takip\n"
+            "3️⃣ Sıkça Sorulan Sorular"
+        )
+
+    if user_states[user_id] == "awaiting_selection":
+        if "1" in incoming_msg or "mağaza" in incoming_msg:
+            user_states.pop(user_id)
+            return "Mağaza sitemize yönlendirmek için tıklayın: https://www.orneksite.com"
+        elif "2" in incoming_msg or "kargo" in incoming_msg:
+            user_states[user_id] = "tracking"
+            # Kullanıcıdan önce telefonla kontrol edilecek
+        elif "3" in incoming_msg or "soru" in incoming_msg:
+            from FAQs.faq import get_faq_list
+            user_states[user_id] = "faq_selection"
+            return "Sıkça Sorulan Sorular:\n" + "\n".join(get_faq_list())
+        else:
+            return "Lütfen geçerli bir seçenek girin: 1, 2 veya 3"
+
+    if user_states.get(user_id) == "awaiting_email":
         email = incoming_msg.strip().lower()
         if email in siparis_veritabani:
-            kargo_durumu = siparis_veritabani[email]["kargo"]
-            reply = f"E-posta adresinizle eşleşen sipariş bulundu. {kargo_durumu}"
+            user_states.pop(user_id)
+            return f"E-posta adresinizle eşleşen sipariş bulundu. {siparis_veritabani[email]['kargo']}"
         else:
-            reply = "Üzgünüz, bu e-posta adresine ait sipariş bulunamadı. Lütfen kontrol edip tekrar deneyin."
-        kullanici_eposta_istegi[user_id] = False
-        return reply
+            return "Üzgünüz, bu e-posta adresine ait sipariş bulunamadı. Lütfen kontrol edip tekrar deneyin."
 
-    # Öncelikle telefon numarasına göre sipariş kontrolü
-    if user_id in siparis_veritabani:
-        kargo_durumu = siparis_veritabani[user_id]["kargo"]
-        reply = f"Sistemde kayıtlı sipariş bulundu. {kargo_durumu}"
-    else:
-        reply = "Bu telefon numarasına kayıtlı bir sipariş bulunamadı. Sipariş verdiğiniz e-posta adresinizi yazar mısınız?"
-        kullanici_eposta_istegi[user_id] = True
+    if user_states.get(user_id) == "tracking":
+        if user_id in siparis_veritabani:
+            user_states.pop(user_id)
+            return f"Sistemde kayıtlı sipariş bulundu. {siparis_veritabani[user_id]['kargo']}"
+        else:
+            user_states[user_id] = "awaiting_email"
+            return "Bu telefon numarasına kayıtlı sipariş bulunamadı. Sipariş verdiğiniz e-posta adresinizi yazar mısınız?"
 
-    return reply
+    if user_states.get(user_id) == "faq_selection":
+        from FAQs.faq import get_faq_answer
+        answer = get_faq_answer(incoming_msg.strip())
+        if answer:
+            user_states.pop(user_id)
+            return answer
+        else:
+            return "Lütfen listeden geçerli bir soru girin."
+
+    return "Geçersiz mesaj."
