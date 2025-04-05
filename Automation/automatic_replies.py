@@ -35,7 +35,8 @@ def process_message(incoming_msg, user_id):
         elif "3" in incoming_msg or "soru" in incoming_msg:
             from FAQs.faq import faq_data
             user_states[user_id] = "faq_selection"
-            return "Sıkça Sorulan Sorular:\n" + "\n".join(faq_data.keys())
+            numbered_faqs = "\n".join([f"{i+1}. {q}" for i, q in enumerate(faq_data.keys())])
+            return f"Sıkça Sorulan Sorular:\n{numbered_faqs}\nLütfen bir seçenek girin (1, 2, 3, ...)."
         else:
             return "Lütfen geçerli bir seçenek girin: 1, 2 veya 3"
 
@@ -56,12 +57,15 @@ def process_message(incoming_msg, user_id):
             return "Bu telefon numarasına kayıtlı sipariş bulunamadı. Sipariş verdiğiniz e-posta adresinizi yazar mısınız?"
 
     if user_states.get(user_id) == "faq_selection":
+        return "Lütfen geçerli bir seçenek girin."
+
+    if user_states.get(user_id) == "faq_answer_selection":
         from FAQs.faq import get_faq_answer
-        answer = get_faq_answer(incoming_msg.strip())
-        if answer:
-            user_states.pop(user_id)
-            return answer
-        else:
-            return "Lütfen listeden geçerli bir soru girin."
+        from FAQs.faq import faq_data
+        faq_list = list(faq_data.keys())
+        question = faq_list[int(incoming_msg.strip()) - 1]
+        answer = get_faq_answer(question)
+        user_states.pop(user_id)
+        return answer
 
     return "Geçersiz mesaj."
