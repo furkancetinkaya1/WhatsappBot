@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 
 app = Flask(__name__)
 
@@ -10,7 +10,17 @@ def home():
 def whatsapp_reply():
     incoming_msg = request.values.get('Body', '').lower()
     print("Gelen mesaj:", incoming_msg)
-    return "Mesaj alındı", 200
+
+    # Yanıt mesajı
+    reply = "Merhaba! Size nasıl yardımcı olabilirim?"
+
+    # XML yanıtını oluştur
+    response = f"""<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Message>{reply}</Message>
+</Response>"""
+
+    return Response(response, mimetype="application/xml")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)  # Bu satırda port ve host'u belirt
+    app.run(host="0.0.0.0", port=5000)
