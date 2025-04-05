@@ -1,3 +1,4 @@
+# Not: Bu sözlükteki anahtarlar doğrudan kullanılmaz. Kullanıcının mesajı .strip().lower() ile normalize edilmelidir.
 faq_data = {
     "botun çalışma durumu nedir?": "Botumuz şu anda aktif ve size yardımcı olmaya hazır!",
     "hangi ürünleri satıyorsunuz?": "Çeşitli elektronik ürünler, telefonlar, bilgisayarlar ve aksesuarlar satıyoruz.",

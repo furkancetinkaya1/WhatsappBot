@@ -2,6 +2,7 @@ from faq import faq_data
 
 def get_faq_answer(question):
     # Kullanıcının mesajı FAQ listesinde mi?
+    question = question.strip()  # Başındaki ve sonundaki boşlukları temizle
     question = question.lower()  # Soruyu küçük harfe çeviriyoruz
     answer = faq_data.get(question, None)
 

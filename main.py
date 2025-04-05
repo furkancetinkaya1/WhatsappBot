@@ -34,25 +34,12 @@ def get_user_name(user_id):
         return None
 
 
-# Ürün fiyatları
-product_prices = {
-    "konut": "499 TL",
-    "arsa": "350 TL",
-    "işyeri": "1000 TL"
-}
-
-# Ana sayfa route'u
-@app.route("/", methods=["GET"])
-def home():
-    return home_page()
-
 
 # WhatsApp mesajı alıp yanıt döndüren route
 @app.route("/whatsapp", methods=["POST"])
 def whatsapp_reply():
     incoming_msg = request.values.get('Body', '').lower()
     user_id = request.values.get('From', '')  # Kullanıcının telefon numarasını al
-    print("Gelen mesaj:", incoming_msg)
 
     # Mesajı işle ve yanıt al
     reply = process_message(incoming_msg, user_id)
@@ -63,6 +50,11 @@ def whatsapp_reply():
     <Message>{reply}</Message>
 </Response>"""
     return Response(response, mimetype="application/xml")
+
+# Ana sayfa route'u
+@app.route("/", methods=["GET"])
+def home():
+    return home_page()
 
 @app.route("/iletisim", methods=["GET"])
 def iletisim():

@@ -33,9 +33,9 @@ def process_message(incoming_msg, user_id):
             user_states[user_id] = "tracking"
             # Kullanıcıdan önce telefonla kontrol edilecek
         elif "3" in incoming_msg or "soru" in incoming_msg:
-            from FAQs.faq import get_faq_list
+            from FAQs.faq import faq_data
             user_states[user_id] = "faq_selection"
-            return "Sıkça Sorulan Sorular:\n" + "\n".join(get_faq_list())
+            return "Sıkça Sorulan Sorular:\n" + "\n".join(faq_data.keys())
         else:
             return "Lütfen geçerli bir seçenek girin: 1, 2 veya 3"
 
