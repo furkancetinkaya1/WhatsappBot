@@ -78,13 +78,13 @@ def get_price_response(message):
 @app.route("/", methods=["GET"])
 def home():
     return """
-  &lt;!DOCTYPE html&gt;
-  &lt;html lang="tr"&gt;
-  &lt;head&gt;
-      &lt;meta charset="UTF-8"&gt;
-      &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-      &lt;title>WhatsApp E-Ticaret Botu&lt;/title&gt;
-      &lt;style&gt;
+  <!DOCTYPE html>
+  <html lang="tr">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>WhatsApp E-Ticaret Botu</title>
+      <style>
           body {
               font-family: Arial, sans-serif;
               background: #f4f4f4;
@@ -117,16 +117,16 @@ def home():
               border-radius: 5px;
               display: inline-block;
           }
-      &lt;/style&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-      &lt;div class="container"&gt;
-          &lt;h1&gt;WhatsApp E-Ticaret Botu&lt;/h1&gt;
-          &lt;p&gt;Bu bot, kullanıcılarla WhatsApp üzerinden etkileşim kurar ve e-ticaret desteği sağlar.&lt;/p&gt;
-          &lt;div class="status"&gt;Durum: Bot aktif ve çalışıyor!&lt;/div&gt;
-      &lt;/div&gt;
-  &lt;/body&gt;
-  &lt;/html&gt;
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <h1>WhatsApp E-Ticaret Botu</h1>
+          <p>Bu bot, kullanıcılarla WhatsApp üzerinden etkileşim kurar ve e-ticaret desteği sağlar.</p>
+          <div class="status">Durum: Bot aktif ve çalışıyor!</div>
+      </div>
+  </body>
+  </html>
   """
 
 
