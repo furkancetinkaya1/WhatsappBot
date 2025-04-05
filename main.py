@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, Response
 from home_view import home_page
+from contact_page import contact_page
 
 app = Flask(__name__)
 
@@ -96,6 +97,9 @@ def whatsapp_reply():
 </Response>"""
     return Response(response, mimetype="application/xml")
 
+@app.route("/iletisim", methods=["GET"])
+def iletisim():
+    return contact_page()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
