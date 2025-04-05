@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, Response
-from botWebsite import homePage
+from home_view import home_page
 
 app = Flask(__name__)
 
@@ -43,7 +43,6 @@ product_prices = {
 def process_message(incoming_msg, user_id):
     """Gelen mesajı işleyip yanıt döndüren fonksiyon"""
     user_name = get_user_name(user_id)
-    reply = ""
 
     if "merhaba" in incoming_msg:
         reply = f"Merhaba {user_name if user_name else 'misafir'}! Size nasıl yardımcı olabilirim?"
@@ -77,7 +76,7 @@ def get_price_response(message):
 # Ana sayfa route'u
 @app.route("/", methods=["GET"])
 def home():
-    return homePage()
+    return home_page()
 
 
 # WhatsApp mesajı alıp yanıt döndüren route

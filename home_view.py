@@ -1,4 +1,4 @@
-def homePage():
+def home_page():
     return """
     <!DOCTYPE html>
     <html lang="tr">
