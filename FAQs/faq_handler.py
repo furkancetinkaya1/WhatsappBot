@@ -1,12 +1,20 @@
-from faq import faq_data
+from FAQs.faq import get_faq_list, get_faq_answer
 
-def get_faq_answer(question):
-    # Kullanıcının mesajı FAQ listesinde mi?
-    question = question.strip()  # Başındaki ve sonundaki boşlukları temizle
-    question = question.lower()  # Soruyu küçük harfe çeviriyoruz
-    answer = faq_data.get(question, None)
+def handle_faq_request(user_message):
+    # Eğer kullanıcı 'Sıkça Sorulan Sorular' seçtiyse
+    if user_message == "3":
+        # Sıkça Sorulan Sorular listesini gönderiyoruz
+        faqs = get_faq_list()
+        faq_message = "Sıkça Sorulan Sorular:\n"
+        for idx, faq in enumerate(faqs, start=1):
+            faq_message += f"{idx}. {faq}\n"
+        faq_message += "Lütfen bir seçenek girin (1, 2, 3, ...)."
+        return faq_message
 
-    if answer:
+    # Eğer kullanıcı numara girerse, cevabı alır
+    elif user_message.isdigit() and int(user_message) in range(1, 7):
+        question = get_faq_list()[int(user_message) - 1]
+        answer = get_faq_answer(question)
         return answer
     else:
-        return "Bu soruya şu anda cevap verilemiyor. Yardımcı olmamı ister misiniz?"
+        return "Geçerli bir seçenek giriniz (1, 2, 3, ...)."

@@ -1,5 +1,3 @@
-import os
-
 # Kullanıcı durumlarını takip etmek için
 user_states = {}  # user_id -> state
 
