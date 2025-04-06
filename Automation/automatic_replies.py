@@ -3,7 +3,7 @@ user_states = {}  # user_id -> state
 
 # Örnek sipariş veritabanı (telefon ve e-posta eşleştirmesiyle)
 siparis_veritabani = {
-    "whatsapp:+905301449892": {"kargo": "Kargonuz yola çıktı ve dağıtım merkezinde."},
+    "whatsapp:+90555555555": {"kargo": "Kargonuz yola çıktı ve dağıtım merkezinde."},
     "test@example.com": {"kargo": "Siparişiniz kargoya verildi, 2 gün içinde teslim edilecek."}
 }
 
