@@ -18,9 +18,9 @@ def process_message(incoming_msg, user_id):
         return (
             "Merhaba! Size nasıl yardımcı olabilirim?\n"
             "Lütfen bir seçenek belirtin:\n"
-            "1️⃣ Mağaza Sitesine Git\n"
-            "2️⃣ Kargo Takip\n"
-            "3️⃣ Sıkça Sorulan Sorular"
+            "1. Mağaza Sitesine Git\n"
+            "2. Kargo Takip\n"
+            "3. Sıkça Sorulan Sorular"
         )
 
     if user_states[user_id] == "awaiting_selection":
@@ -55,7 +55,19 @@ def process_message(incoming_msg, user_id):
             return "Bu telefon numarasına kayıtlı sipariş bulunamadı. Sipariş verdiğiniz e-posta adresinizi yazar mısınız?"
 
     if user_states.get(user_id) == "faq_selection":
-        return "Lütfen geçerli bir seçenek girin."
+        try:
+            from FAQs.faq import get_faq_answer, faq_data
+            index = int(incoming_msg.strip()) - 1
+            faq_list = list(faq_data.keys())
+            if 0 <= index < len(faq_list):
+                question = faq_list[index]
+                answer = get_faq_answer(question)
+                user_states.pop(user_id)
+                return answer
+            else:
+                return "Lütfen listeden geçerli bir numara seçin."
+        except (ValueError, IndexError):
+            return "Lütfen sadece listedeki numaralardan birini girin."
 
     if user_states.get(user_id) == "faq_answer_selection":
         from FAQs.faq import get_faq_answer
