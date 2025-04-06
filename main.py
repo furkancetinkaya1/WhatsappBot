@@ -16,7 +16,6 @@ def save_user_name(user_id, user_name):
     except Exception as e:
         print(f"Dosyaya kaydetme hatası: {e}")
 
-
 # Kullanıcı adını dosyadan alma fonksiyonu
 def get_user_name(user_id):
     """Kullanıcı adını dosyadan al"""
@@ -32,8 +31,6 @@ def get_user_name(user_id):
     except Exception as e:
         print(f"Hata oluştu: {e}")
         return None
-
-
 
 # WhatsApp mesajı alıp yanıt döndüren route
 @app.route("/whatsapp", methods=["POST"])

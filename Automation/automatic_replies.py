@@ -34,7 +34,7 @@ def process_message(incoming_msg, user_id):
             from FAQs.faq import faq_data
             user_states[user_id] = "faq_selection"
             numbered_faqs = "\n".join([f"{i+1}. {q}" for i, q in enumerate(faq_data.keys())])
-            return f"Sıkça Sorulan Sorular:\n{numbered_faqs}\nLütfen bir seçenek girin (1, 2, 3, ...)."
+            return f"Sıkça Sorulan Sorular\nLütfen bir seçenek belirtin:\n{numbered_faqs}"
         else:
             return "Lütfen geçerli bir seçenek girin: 1, 2 veya 3"
 
